@@ -3,163 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fix It Up - Premium Dashboard</title>
+    <title>Fix It Up - Live Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-main: #0f111a;
-            --bg-sidebar: #151824;
-            --bg-card: #1e2235;
-            --accent: #2ecc71;
-            --text-main: #ffffff;
-            --text-sub: #8b9bb4;
+            --bg-body: #0a0b10;
+            --bg-card: #121420;
+            --bg-sidebar: #16192b;
+            --text-primary: #ffffff;
+            --text-secondary: #7fa1c3;
+            --accent-green: #2ecc71;
+            --accent-blue: #3498db;
+            --accent-orange: #e67e22;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
-        
-        /* Sidebar */
-        .sidebar { width: 260px; background-color: var(--bg-sidebar); display: flex; flex-direction: column; align-items: center; padding: 30px 20px; border-right: 1px solid rgba(255,255,255,0.05); }
-        .profile-container { text-align: center; margin-bottom: 40px; position: relative; }
-        .avatar-wrapper { position: relative; width: 100px; height: 100px; margin: 0 auto 15px auto; }
-        .avatar { width: 100%; height: 100%; border-radius: 50%; background-color: #2a2f45; border: 3px solid #2a2f45; object-fit: cover; }
-        .status-dot { width: 16px; height: 16px; background-color: #e74c3c; border: 3px solid var(--bg-sidebar); border-radius: 50%; position: absolute; bottom: 5px; right: 5px; transition: background-color 0.3s; }
-        .status-dot.online { background-color: #2ecc71; box-shadow: 0 0 10px #2ecc71; }
-        .username { font-size: 18px; font-weight: 600; color: var(--text-main); word-break: break-all; }
-        .status-text { font-size: 12px; color: var(--text-sub); margin-top: 5px; font-weight: bold; }
-        .menu-items { width: 100%; }
-        .menu-item { width: 100%; padding: 12px 15px; border-radius: 8px; color: var(--text-sub); text-decoration: none; display: flex; align-items: center; gap: 15px; margin-bottom: 8px; font-weight: 500; }
-        .menu-item.active { background-color: rgba(255,255,255,0.05); color: var(--text-main); }
-        .menu-item.active i { color: var(--accent); }
-        
-        /* Main Content */
-        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
-        .header { margin-bottom: 30px; }
-        .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 5px; }
-        .header p { color: var(--text-sub); font-size: 14px; }
-        
-        /* Cards Grid */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-        .card { background-color: var(--bg-card); border-radius: 16px; padding: 25px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.02); }
-        .card-info { display: flex; flex-direction: column; gap: 5px; }
-        .card-info h3 { font-size: 13px; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; }
-        .card-info .value { font-size: 26px; font-weight: 700; }
-        .card-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-        
-        /* Card Themes */
-        .card.money .card-icon { background-color: rgba(46, 204, 113, 0.1); color: #2ecc71; }
-        .card.money .value { color: #2ecc71; }
-        .card.kms .card-icon { background-color: rgba(52, 152, 219, 0.1); color: #3498db; }
-        .card.kms .value { color: #3498db; }
-        .card.cars .card-icon { background-color: rgba(230, 126, 34, 0.1); color: #e67e22; }
-        .card.cars .value { color: #e67e22; }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar สไตล์พรีเมียมตามต้นฉบับ */
+        .sidebar {
+            width: 280px;
+            background-color: var(--bg-sidebar);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 15px auto;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #1f233d;
+            background-color: #121420;
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 18px;
+            height: 18px;
+            background-color: #e74c3c;
+            border: 3px solid var(--bg-sidebar);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .status-badge.online {
+            background-color: var(--accent-green);
+            box-shadow: 0 0 12px var(--accent-green);
+        }
+
+        .player-name {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--text-primary);
+            word-break: break-all;
+        }
+
+        .live-status-text {
+            font-size: 12px;
+            font-weight: 800;
+            color: #e74c3c;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        /* พื้นที่เนื้อหาขวามือ */
+        .main-content {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
+        }
+
+        .dashboard-header p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* การ์ดสถิติแนวโมเดิร์นกว้างๆ ชัดเจน */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .stat-card {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-details h3 {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .stat-details .stat-value {
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .stat-icon-box {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        /* สีสันเจาะจงแต่ละประเภทข้อมูล */
+        .stat-card.money-card .stat-icon-box { background-color: rgba(46, 204, 113, 0.1); color: var(--accent-green); }
+        .stat-card.money-card .stat-value { color: var(--accent-green); }
+
+        .stat-card.kms-card .stat-icon-box { background-color: rgba(52, 152, 219, 0.1); color: var(--accent-blue); }
+        .stat-card.kms-card .stat-value { color: var(--accent-blue); }
+
+        .stat-card.cars-card .stat-icon-box { background-color: rgba(230, 126, 34, 0.1); color: var(--accent-orange); }
+        .stat-card.cars-card .stat-value { color: var(--accent-orange); }
+
+        /* Responsive สำหรับเปิดในมือถือ */
         @media (max-width: 768px) {
-            body { flex-direction: column; overflow-y: auto; height: auto; }
-            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
-            .main-content { padding: 20px; }
+            body { flex-direction: column; }
+            .sidebar { width: 100%; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 30px 20px; }
+            .main-content { padding: 25px; }
         }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
-        <div class="profile-container">
-            <div class="avatar-wrapper">
-                <img id="player-avatar" class="avatar" src="https://images.rbxcdn.com/716ec89fae18378378411d31edc0a6b5.png" alt="Avatar">
-                <div id="status-dot" class="status-dot"></div>
+        <div class="profile-section">
+            <div class="avatar-container">
+                <img id="display-avatar" class="avatar-img" src="https://images.rbxcdn.com/716ec89fae18378378411d31edc0a6b5.png" alt="Roblox Avatar">
+                <div id="display-dot" class="status-badge"></div>
             </div>
-            <div id="username" class="username">Loading...</div>
-            <div id="status-text" class="status-text" style="color: #e74c3c;">OFFLINE</div>
-        </div>
-        <div class="menu-items">
-            <a href="#" class="menu-item active"><i class="fa-solid fa-chart-simple"></i> Dashboard</a>
+            <div id="display-username" class="player-name">Loading...</div>
+            <div id="display-status-text" class="live-status-text">OFFLINE</div>
         </div>
     </div>
 
     <div class="main-content">
-        <div class="header">
-            <h1>Fix It Up Status</h1>
-            <p>อัปเดตล่าสุด: <span id="last-update">-</span></p>
+        <div class="dashboard-header">
+            <h1>Fix It Up Realtime</h1>
+            <p>เวลาอัปเดตล่าสุดจากในเกม: <span id="display-time" style="color: white; font-weight: 600;">-</span></p>
         </div>
 
-        <div class="stats-grid">
-            <!-- คอลัมน์เงิน -->
-            <div class="card money">
-                <div class="card-info">
+        <div class="stats-container">
+            <div class="stat-card money-card">
+                <div class="stat-details">
                     <h3>Money</h3>
-                    <div id="stat-money" class="value">€0</div>
+                    <div id="val-money" class="stat-value">€0</div>
                 </div>
-                <div class="card-icon"><i class="fa-solid fa-wallet"></i></div>
+                <div class="stat-icon-box"><i class="fa-solid fa-wallet"></i></div>
             </div>
-            <!-- คอลัมน์ระยะทาง -->
-            <div class="card kms">
-                <div class="card-info">
+
+            <div class="stat-card kms-card">
+                <div class="stat-details">
                     <h3>Kilometers</h3>
-                    <div id="stat-kms" class="value">0 km</div>
+                    <div id="val-kms" class="stat-value">0 km</div>
                 </div>
-                <div class="card-icon"><i class="fa-solid fa-road"></i></div>
+                <div class="stat-icon-box"><i class="fa-solid fa-road"></i></div>
             </div>
-            <!-- คอลัมน์รถที่ขาย -->
-            <div class="card cars">
-                <div class="card-info">
+
+            <div class="stat-card cars-card">
+                <div class="stat-details">
                     <h3>Cars Sold</h3>
-                    <div id="stat-cars" class="value">0 คัน</div>
+                    <div id="val-cars" class="stat-value">0 คัน</div>
                 </div>
-                <div class="card-icon"><i class="fa-solid fa-car-side"></i></div>
+                <div class="stat-icon-box"><i class="fa-solid fa-car-side"></i></div>
             </div>
         </div>
     </div>
 
 <script>
-    const firebaseURL = "https://fix-it-up-861ff-default-rtdb.asia-southeast1.firebasedatabase.app/.json";
-    let currentCachedUser = "";
+    // ดึงข้อมูลผ่าน Firebase ของคุณโดยตรง
+    const targetDatabase = "https://fix-it-up-861ff-default-rtdb.asia-southeast1.firebasedatabase.app/.json";
+    let activePlayer = "";
 
-    function updateDashboard() {
-        fetch(firebaseURL)
-        .then(res => res.json())
-        .then(data => {
-            if (!data) return;
+    function fetchData() {
+        fetch(targetDatabase)
+        .then(response => response.json())
+        .then(serverData => {
+            if (!serverData) return;
 
-            // ดึงรายชื่อผู้เล่นคนแรกจากดาต้าเบส
-            const username = Object.keys(data)[0];
-            if (!username) return;
+            // ดึงชื่อของคีย์แรกที่เจอบนดาต้าเบส
+            const detectedUser = Object.keys(serverData)[0];
+            if (!detectedUser) return;
 
-            const stats = data[username];
+            const playerStats = serverData[detectedUser];
 
-            // 🛠️ ตรวจสอบแก้บั๊กสลับช่อง: ดึงตัวแปรมาหยอดลงไอดีให้ตรงช่อง
-            document.getElementById("username").innerText = username;
-            document.getElementById("stat-money").innerText = "€" + Number(stats.money || 0).toLocaleString();
-            document.getElementById("stat-kms").innerText = Number(stats.kms || 0).toLocaleString() + " km";
-            document.getElementById("stat-cars").innerText = Number(stats.carsSold || 0).toLocaleString() + " คัน";
-            document.getElementById("last-update").innerText = stats.lastUpdate || "-";
+            // อัปเดตข้อมูลตัวเลขลงกล่องสถิติให้ตรงจุด
+            document.getElementById("display-username").innerText = detectedUser;
+            document.getElementById("val-money").innerText = "€" + Number(playerStats.money || 0).toLocaleString();
+            document.getElementById("val-kms").innerText = Number(playerStats.kms || 0).toLocaleString() + " km";
+            document.getElementById("val-cars").innerText = Number(playerStats.carsSold || 0).toLocaleString() + " คัน";
+            document.getElementById("display-time").innerText = playerStats.lastUpdate || "-";
 
-            // 🛠️ แก้บั๊กรูปไม่โหลด: เปลี่ยนวิธีดึงรูปโปรไฟล์โดยใช้ API สากลของ Roblox ที่เข้าถึงได้โดยไม่ติดบล็อกเบราว์เซอร์
-            if (currentCachedUser !== username) {
-                currentCachedUser = username;
-                // ดึงรูปอวาตาร์โดยตรงจากระบบจัดเก็บรูปภาพของ Roblox โดยใช้ชื่อพ่วงท้าย
-                document.getElementById("player-avatar").src = `https://www.roblox.com/headshot-thumbnail/image?width=150&height=150&format=png&username=${encodeURIComponent(username)}`;
+            // เปลี่ยนรูปอวาตาร์เมื่อตรวจพบชื่อผู้เล่นใหม่
+            if (activePlayer !== detectedUser) {
+                activePlayer = detectedUser;
+                document.getElementById("display-avatar").src = `https://www.roblox.com/headshot-thumbnail/image?width=150&height=150&format=png&username=${encodeURIComponent(detectedUser)}`;
             }
 
-            // เช็คเวลาอัปเดตออนไลน์บอท
-            const timeNow = Math.floor(Date.now() / 1000);
-            const dot = document.getElementById("status-dot");
-            const txt = document.getElementById("status-text");
+            // ตรวจสอบระบบ Online / Offline
+            const currentTimestamp = Math.floor(Date.now() / 1000);
+            const statusDot = document.getElementById("display-dot");
+            const statusText = document.getElementById("display-status-text");
 
-            if (stats.timestamp && (timeNow - stats.timestamp) <= 12) {
-                dot.className = "status-dot online";
-                txt.innerText = "ONLINE";
-                txt.style.color = "#2ecc71";
+            if (playerStats.timestamp && (currentTimestamp - playerStats.timestamp) <= 12) {
+                statusDot.className = "status-badge online";
+                statusText.innerText = "ONLINE";
+                statusText.style.color = "#2ecc71";
             } else {
-                dot.className = "status-dot";
-                txt.innerText = "OFFLINE";
-                txt.style.color = "#e74c3c";
+                statusDot.className = "status-badge";
+                statusText.innerText = "OFFLINE";
+                statusText.style.color = "#e74c3c";
             }
         })
-        .catch(err => console.error("Firebase Fetch Error:", err));
+        .catch(error => console.error("Error reading Firebase:", error));
     }
 
-    updateDashboard();
-    setInterval(updateDashboard, 3000); // อัปเดตหน้าจอทุก 3 วินาทีตามที่ตัวรันส่งมา
+    // สั่งให้หน้าจอรีเฟรชข้อมูลตัวเองอัตโนมัติทุกๆ 3 วินาที
+    fetchData();
+    setInterval(fetchData, 3000);
 </script>
 </body>
 </html>
